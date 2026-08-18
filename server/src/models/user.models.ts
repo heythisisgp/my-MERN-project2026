@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
-import { IUser, UserRole } from "../types/user.types.js";
+import { UserRole } from "../types/user.types.js";
+import type { IUser } from "../types/user.types.js";
 
 const userSchema = new Schema<IUser>(
   {
@@ -20,6 +21,13 @@ const userSchema = new Schema<IUser>(
       required: true,
       unique: true,
       lowercase: true,
+      trim: true,
+    },
+
+    password: {
+      type: String,
+      required: true,
+      select: false,
     },
 
     role: {
@@ -38,3 +46,4 @@ const userSchema = new Schema<IUser>(
   }
 );
 
+export const User = mongoose.model<IUser>("User", userSchema);
